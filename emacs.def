@@ -1,0 +1,9 @@
+Bootstrap: docker
+From: docker-repo.vpc.locusdev.net/lkirk/emacs:latest
+Stage: build
+
+%environment
+    export HOME=/home/user
+
+%runscript
+    emacs "$@"
