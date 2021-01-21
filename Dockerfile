@@ -17,7 +17,8 @@ RUN \
 		python3 python3-dev python3-distutils python3-pip cython3 \
 		python3-venv \
 		python3-flake8 \
-		pylint3 \
+		# pylint3 \
+		black \
 		# for jedi mode
 		python-virtualenv \
 		python-setuptools \
@@ -54,7 +55,8 @@ ENV HOME=/home/user
 # WORKDIR /root
 # RUN ln -s /usr/bin/python3 /usr/bin/python
 
-ADD . .
+ADD .emacs .
+ADD install-packages.el .
 RUN \
 	set -ex ;\
 	# ln -s /usr/bin/python3 /usr/bin/python ;\
