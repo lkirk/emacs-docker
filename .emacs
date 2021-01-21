@@ -19,7 +19,6 @@
 ;(normal-erase-is-backspace-mode 1)  ; needed for backspace to work in docker
 
 (global-undo-tree-mode)
-;(evil-set-undo-system 'undo-tree)
 
 (require 'powerline)
 (powerline-default-theme)
@@ -60,6 +59,7 @@
 ;;---------;;
 (require 'evil)
 (evil-mode 1)
+(evil-set-undo-system 'undo-tree)
 
 ;;-------------;;
 ; MARKDOWN MODE ;
@@ -109,6 +109,17 @@
      (define-key flycheck-mode-map (kbd "C-c n") 'flycheck-next-error)
      (define-key flycheck-mode-map (kbd "C-c N") 'flycheck-previous-error)
      ))
+
+;; (eval-after-load 'flycheck
+(add-hook 'python-mode-hook
+  (lambda ()
+     (let (ve-path)
+       (dolist (env (frame-parameter nil 'environment) ve-path)
+	 (if (string-prefix-p "VIRTUAL_ENV=" env)
+	     (setq ve-path (cadr (split-string env "=" t)))))
+       (if ve-path
+	   (setq flycheck-python-pylint-executable (concat (file-name-as-directory ve-path) "bin/pylint"))))))
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
