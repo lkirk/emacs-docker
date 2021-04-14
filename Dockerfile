@@ -1,4 +1,4 @@
-FROM debian:buster-slim
+FROM python:3.8-slim
 
 
 ARG BUILD_TOOLS='wget build-essential pkg-config autoconf'
@@ -14,11 +14,11 @@ RUN \
 		libncurses-dev \
 		libgnutls28-dev \
 		fonts-powerline \
-		python3 python3-dev python3-distutils python3-pip cython3 \
-		python3-venv \
-		python3-flake8 \
+		# python3 python3-dev python3-distutils python3-pip cython3 \
+		# python3-venv \
+		# python3-flake8 \
 		# pylint3 \
-		black \
+		# black \
 		# for jedi mode
 		python-virtualenv \
 		python-setuptools \
@@ -26,6 +26,11 @@ RUN \
 		python-wheel \
 		virtualenv \
 		&& rm -rf /var/lib/apt/lists/*
+
+RUN set -ex; \
+	pip install --upgrade --no-cache-dir pip setuptools; \
+	pip install --upgrade --no-cache-dir flake8 'black==20.8b1' cython
+
 
 RUN \
 	set -ex ;\
