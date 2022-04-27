@@ -16,6 +16,7 @@
 		     bison-mode
 		     blacken
 		     clang-format
+		     sphinx-doc
 		     cmake-mode
 		     csharp-mode
 		     cython-mode
