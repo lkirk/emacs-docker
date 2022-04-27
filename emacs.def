@@ -1,5 +1,5 @@
 Bootstrap: docker
-From: docker-repo.vpc.locusdev.net/lkirk/emacs:latest
+From: quay.io/lkirk/emacs:latest
 Stage: build
 
 %environment
