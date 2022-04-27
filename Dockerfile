@@ -1,4 +1,4 @@
-FROM python:3.9-slim
+FROM python:3.9-slim-bullseye
 
 
 ARG BUILD_TOOLS='wget build-essential pkg-config autoconf'
@@ -15,10 +15,10 @@ RUN \
 		libgnutls28-dev \
 		fonts-powerline \
 		# for jedi mode
-		python-virtualenv \
-		python-setuptools \
-		python-pip \
-		python-wheel \
+		python3-virtualenv \
+		python3-setuptools \
+		python3-pip \
+		python3-wheel \
 		virtualenv \
 		&& rm -rf /var/lib/apt/lists/*
 
@@ -40,7 +40,8 @@ RUN \
 	make install ;\
 	) ;\
 	rm -r emacs-27.1* ;\
-	apt-get remove --purge -y $BUILD_TOOLS
+	apt-get remove --purge -y $BUILD_TOOLS ;\
+    apt-get clean
 
 RUN \
 	set -ex ;\
@@ -52,14 +53,10 @@ WORKDIR /home/user
 USER user
 ENV HOME=/home/user
 
-# WORKDIR /root
-# RUN ln -s /usr/bin/python3 /usr/bin/python
-
 ADD .emacs .
 ADD install-packages.el .
 RUN \
 	set -ex ;\
-	# ln -s /usr/bin/python3 /usr/bin/python ;\
 	emacs -Q --script install-packages.el
 
 CMD ["emacs"]
