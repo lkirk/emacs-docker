@@ -1,4 +1,4 @@
-FROM python:3.8-slim
+FROM python:3.9-slim
 
 
 ARG BUILD_TOOLS='wget build-essential pkg-config autoconf'
@@ -14,11 +14,6 @@ RUN \
 		libncurses-dev \
 		libgnutls28-dev \
 		fonts-powerline \
-		# python3 python3-dev python3-distutils python3-pip cython3 \
-		# python3-venv \
-		# python3-flake8 \
-		# pylint3 \
-		# black \
 		# for jedi mode
 		python-virtualenv \
 		python-setuptools \
@@ -29,7 +24,7 @@ RUN \
 
 RUN set -ex; \
 	pip install --upgrade --no-cache-dir pip setuptools; \
-	pip install --upgrade --no-cache-dir flake8 'black==20.8b1' cython
+	pip install --upgrade --no-cache-dir flake8 'black==22.3.0' cython
 
 
 RUN \
@@ -68,13 +63,3 @@ RUN \
 	emacs -Q --script install-packages.el
 
 CMD ["emacs"]
-
-
-    # apt-get remove --auto-remove -y $BUILD_DEPS ;\
-    # apt-get purge -y $BUILD_DEPS ;\
-    # apt-get clean ;\
-    # rm -rf \
-    #    ~user/.cache \
-    #    /var/lib/apt/lists/* \
-    #    /tmp/* \
-    #    /var/tmp/*
