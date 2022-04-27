@@ -19,6 +19,9 @@ RUN \
 		python3-setuptools \
 		python3-pip \
 		python3-wheel \
+		# shouldn't have to install pylint/mypy?
+		pylint \
+		mypy \
 		virtualenv \
 		&& rm -rf /var/lib/apt/lists/*
 
